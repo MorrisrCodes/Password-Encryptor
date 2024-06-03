@@ -1,12 +1,70 @@
 import tkinter as tk
+import random
 
-def enctrypt(before):
+def encrypt(before):
     passw = ''
-    if len(before) < 10:
-        passw + ('z')
-    elif len(before) >= 10:
-        passw + ('Z')
-    return passw
+    for i in range(len(before)):
+        if before[i] == 'a':
+            passw += '21'
+        elif before[i] == 'b':
+            passw += '22'
+        elif before[i] == 'c':
+            passw += '23'
+        elif before[i] == 'd':
+            passw += '31'
+        elif before[i] == 'e':
+            passw += '32'
+        elif before[i] == 'f':
+            passw += '33'
+        elif before[i] == 'g':
+            passw += '41'
+        elif before[i] == 'h':
+            passw += '42'
+        elif before[i] == 'i':
+            passw += '43'
+        elif before[i] == 'j':
+            passw += '51'
+        elif before[i] == 'k':
+            passw += '52'
+        elif before[i] == 'l':
+            passw += '53'
+        elif before[i] == 'm':
+            passw += '61'
+        elif before[i] == 'n':
+            passw += '62'
+        elif before[i] == 'o':
+            passw += '63'
+        elif before[i] == 'p':
+            passw += '71'
+        elif before[i] == 'q':
+            passw += '72'
+        elif before[i] == 'r':
+            passw += '73'
+        elif before[i] == 's':
+            passw += '74'
+        elif before[i] == 't':
+            passw += '81'
+        elif before[i] == 'u':
+            passw += '82'
+        elif before[i] == 'v':
+            passw += '83'
+        elif before[i] == 'w':
+            passw += '91'
+        elif before[i] == 'x':
+            passw += '92'
+        elif before[i] == 'y':
+            passw += '93'
+        elif before[i] == 'z':
+            passw += '94'
+        else:
+            passw += before[i]
+    if len(before) < 20:
+        while len(passw) < 40:
+            passw += 'H'
+            while len(passw) < 40:
+                passw += random.choice(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '[', ']', ';', "'", ',', '.', '/', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', '}', '|', ':', '"', '<', '>', '?', '`', '~'])
+    afterE.delete(0, tk.END)
+    afterE.insert(0, passw)
 
 root = tk.Tk()
 
@@ -23,7 +81,7 @@ beforeE.insert(0, "Enter password here")
 afterE = tk.Entry(root, width=50)
 afterE.grid(row=1, column=1)
 
-rule = tk.Label(root, text="Password must be at least 10 characters long, include 1 number, 1 uppercase letter, and 1 special character")  
+rule = tk.Label(root, text="Password must be between 8 and 20 characters long, include 1 number, 1 uppercase letter, and 1 special character")  
 rule.grid(row=2, column=0, columnspan=4)
 
 sub = tk.Button(root, text="Encrypt", command=lambda: encrypt(beforeE.get()))
