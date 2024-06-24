@@ -56,8 +56,8 @@ def encrypt(before):
             passw += '93'
         elif before[i] == 'z':
             passw += '94'
-        else:
-            passw += before[i]
+        elif before[i] == ' ':
+            passw += '95'
     if len(before) < 20:
         while len(passw) < 40:
             passw += 'H'
@@ -70,8 +70,10 @@ def decrypt(before, after):
     passw = ''
     if before == 'Enter password here' or before == '':
         i = 0
-        while i < (len(after)):
+        while i < len(after):
             pair = after[i:i+2]
+            if 'H' in pair:
+                break
             if pair == '21':
                 passw += 'a'
             elif pair == '22':
@@ -124,13 +126,15 @@ def decrypt(before, after):
                 passw += 'y'
             elif pair == '94':
                 passw += 'z'
-            else:
-                passw += pair
+            elif pair == '95':
+                passw += ' '
             i += 2
     else:
         i = 0
-        while i < (len(before)):
+        while i < len(before):
             pair = before[i:i+2]
+            if 'H' in pair:
+                break
             if pair == '21':
                 passw += 'a'
             elif pair == '22':
@@ -183,13 +187,12 @@ def decrypt(before, after):
                 passw += 'y'
             elif pair == '94':
                 passw += 'z'
-            else:
-                passw += pair
+            elif pair == '95':
+                passw += ' '
             i += 2
     afterE.delete(0, tk.END)
     afterE.insert(0, passw)
                
-
 root = tk.Tk()
 
 root.title("Password Encryptor")
