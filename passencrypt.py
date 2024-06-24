@@ -66,6 +66,130 @@ def encrypt(before):
     afterE.delete(0, tk.END)
     afterE.insert(0, passw)
 
+def decrypt(before, after):
+    passw = ''
+    if before == 'Enter password here' or before == '':
+        i = 0
+        while i < (len(after)):
+            pair = after[i:i+2]
+            if pair == '21':
+                passw += 'a'
+            elif pair == '22':
+                passw += 'b'
+            elif pair == '23':
+                passw += 'c'
+            elif pair == '31':
+                passw += 'd'
+            elif pair == '32':
+                passw += 'e'
+            elif pair == '33':
+                passw += 'f'
+            elif pair == '41':
+                passw += 'g'
+            elif pair == '42':
+                passw += 'h'
+            elif pair == '43':
+                passw += 'i'
+            elif pair == '51':
+                passw += 'j'
+            elif pair == '52':
+                passw += 'k'
+            elif pair == '53':
+                passw += 'l'
+            elif pair == '61':
+                passw += 'm'
+            elif pair == '62':
+                passw += 'n'
+            elif pair == '63':
+                passw += 'o'
+            elif pair == '71':
+                passw += 'p'
+            elif pair == '72':
+                passw += 'q'
+            elif pair == '73':
+                passw += 'r'
+            elif pair == '74':
+                passw += 's'
+            elif pair == '81':
+                passw += 't'
+            elif pair == '82':
+                passw += 'u'
+            elif pair == '83':
+                passw += 'v'
+            elif pair == '91':
+                passw += 'w'
+            elif pair == '92':
+                passw += 'x'
+            elif pair == '93':
+                passw += 'y'
+            elif pair == '94':
+                passw += 'z'
+            else:
+                passw += pair
+            i += 2
+    else:
+        i = 0
+        while i < (len(before)):
+            pair = before[i:i+2]
+            if pair == '21':
+                passw += 'a'
+            elif pair == '22':
+                passw += 'b'
+            elif pair == '23':
+                passw += 'c'
+            elif pair == '31':
+                passw += 'd'
+            elif pair == '32':
+                passw += 'e'
+            elif pair == '33':
+                passw += 'f'
+            elif pair == '41':
+                passw += 'g'
+            elif pair == '42':
+                passw += 'h'
+            elif pair == '43':
+                passw += 'i'
+            elif pair == '51':
+                passw += 'j'
+            elif pair == '52':
+                passw += 'k'
+            elif pair == '53':
+                passw += 'l'
+            elif pair == '61':
+                passw += 'm'
+            elif pair == '62':
+                passw += 'n'
+            elif pair == '63':
+                passw += 'o'
+            elif pair == '71':
+                passw += 'p'
+            elif pair == '72':
+                passw += 'q'
+            elif pair == '73':
+                passw += 'r'
+            elif pair == '74':
+                passw += 's'
+            elif pair == '81':
+                passw += 't'
+            elif pair == '82':
+                passw += 'u'
+            elif pair == '83':
+                passw += 'v'
+            elif pair == '91':
+                passw += 'w'
+            elif pair == '92':
+                passw += 'x'
+            elif pair == '93':
+                passw += 'y'
+            elif pair == '94':
+                passw += 'z'
+            else:
+                passw += pair
+            i += 2
+    afterE.delete(0, tk.END)
+    afterE.insert(0, passw)
+               
+
 root = tk.Tk()
 
 root.title("Password Encryptor")
@@ -85,6 +209,8 @@ rule = tk.Label(root, text="Password must be between 8 and 20 characters long, i
 rule.grid(row=2, column=0, columnspan=4)
 
 sub = tk.Button(root, text="Encrypt", command=lambda: encrypt(beforeE.get()))
-sub.grid(row=3, column=0, columnspan=2)
+sub.grid(row=3, column=0)
+dec = tk.Button(root, text="Decrypt", command=lambda: decrypt(beforeE.get(), afterE.get()))
+dec.grid(row=3, column=1)
 
 root.mainloop()
