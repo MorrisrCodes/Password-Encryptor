@@ -1,6 +1,27 @@
 import tkinter as tk
 import random
 
+codemap = {
+    'a': '45', 'b': '91', 'c': '31', 'd': '06', 'e': '83', 'f': '27', 'g': '64', 
+    'h': '59', 'i': '29', 'j': '77', 'k': '49', 'l': '13', 'm': '90', 'n': '42', 
+    'o': '56', 'p': '02', 'q': '66', 'r': '01', 's': '72', 't': '24', 'u': '44', 
+    'v': '15', 'w': '08', 'x': '73', 'y': '38', 'z': '20', 'A': '37', 'B': '78', 
+    'C': '81', 'D': '18', 'E': '57', 'F': '11', 'G': '87', 'H': '55', 'I': '14', 
+    'J': '03', 'K': '75', 'L': '10', 'M': '89', 'N': '85', 'O': '50', 'P': '46', 
+    'Q': '74', 'R': '62', 'S': '63', 'T': '79', 'U': '25', 'V': '36', 'W': '04', 
+    'X': '93', 'Y': '84', 'Z': '16', '0': '41', '1': '94', '2': '22', '3': '12', 
+    '4': '17', '5': '52', '6': '67', '7': '92', '8': '60', '9': '43', '!': '53', 
+    '@': '26', '#': '07', '$': '61', '%': '34', '^': '76', '&': '88', '*': '21', 
+    '(': '48', ')': '58', '-': '30', '_': '32', '=': '05', '+': '65', '[': '70', 
+    ']': '82', ';': '80', "'": '35', ',': '28', '.': '47', '/': '19', '{': '69', 
+    '}': '33', '|': '09', ':': '40', '"': '86', '<': '23', '>': '68', '?': '71', 
+    '`': '39', '~': '54', ' ': '51'
+}
+
+inverted_codemap = {}
+for key, val in codemap.items():
+    inverted_codemap[val] = key
+
 def encrypt(before):
     passw = ''
     for i in range(len(before)):
@@ -66,132 +87,18 @@ def encrypt(before):
     afterE.delete(0, tk.END)
     afterE.insert(0, passw)
 
-def decrypt(before, after):
+def decrypt(before):
     passw = ''
-    if before == 'Enter password here' or before == '':
-        i = 0
-        while i < len(after):
-            pair = after[i:i+2]
-            if 'H' in pair:
-                break
-            if pair == '21':
-                passw += 'a'
-            elif pair == '22':
-                passw += 'b'
-            elif pair == '23':
-                passw += 'c'
-            elif pair == '31':
-                passw += 'd'
-            elif pair == '32':
-                passw += 'e'
-            elif pair == '33':
-                passw += 'f'
-            elif pair == '41':
-                passw += 'g'
-            elif pair == '42':
-                passw += 'h'
-            elif pair == '43':
-                passw += 'i'
-            elif pair == '51':
-                passw += 'j'
-            elif pair == '52':
-                passw += 'k'
-            elif pair == '53':
-                passw += 'l'
-            elif pair == '61':
-                passw += 'm'
-            elif pair == '62':
-                passw += 'n'
-            elif pair == '63':
-                passw += 'o'
-            elif pair == '71':
-                passw += 'p'
-            elif pair == '72':
-                passw += 'q'
-            elif pair == '73':
-                passw += 'r'
-            elif pair == '74':
-                passw += 's'
-            elif pair == '81':
-                passw += 't'
-            elif pair == '82':
-                passw += 'u'
-            elif pair == '83':
-                passw += 'v'
-            elif pair == '91':
-                passw += 'w'
-            elif pair == '92':
-                passw += 'x'
-            elif pair == '93':
-                passw += 'y'
-            elif pair == '94':
-                passw += 'z'
-            elif pair == '95':
-                passw += ' '
-            i += 2
-    else:
-        i = 0
-        while i < len(before):
-            pair = before[i:i+2]
-            if 'H' in pair:
-                break
-            if pair == '21':
-                passw += 'a'
-            elif pair == '22':
-                passw += 'b'
-            elif pair == '23':
-                passw += 'c'
-            elif pair == '31':
-                passw += 'd'
-            elif pair == '32':
-                passw += 'e'
-            elif pair == '33':
-                passw += 'f'
-            elif pair == '41':
-                passw += 'g'
-            elif pair == '42':
-                passw += 'h'
-            elif pair == '43':
-                passw += 'i'
-            elif pair == '51':
-                passw += 'j'
-            elif pair == '52':
-                passw += 'k'
-            elif pair == '53':
-                passw += 'l'
-            elif pair == '61':
-                passw += 'm'
-            elif pair == '62':
-                passw += 'n'
-            elif pair == '63':
-                passw += 'o'
-            elif pair == '71':
-                passw += 'p'
-            elif pair == '72':
-                passw += 'q'
-            elif pair == '73':
-                passw += 'r'
-            elif pair == '74':
-                passw += 's'
-            elif pair == '81':
-                passw += 't'
-            elif pair == '82':
-                passw += 'u'
-            elif pair == '83':
-                passw += 'v'
-            elif pair == '91':
-                passw += 'w'
-            elif pair == '92':
-                passw += 'x'
-            elif pair == '93':
-                passw += 'y'
-            elif pair == '94':
-                passw += 'z'
-            elif pair == '95':
-                passw += ' '
-            i += 2
-    afterE.delete(0, tk.END)
-    afterE.insert(0, passw)
+    i = 0
+    while i < len(before):
+        if 'H' in before[i:i+2]:  # Stops processing at the 'H' character
+            break
+        pair = before[i:i+2]  # Take two characters at a time
+        if pair in inverted_codemap:
+            passw += inverted_codemap[pair]  # Add the corresponding character
+        else:
+            passw += ''  # Handle cases where the pair is not found
+        i += 2
                
 root = tk.Tk()
 
@@ -213,7 +120,7 @@ rule.grid(row=2, column=0, columnspan=4)
 
 sub = tk.Button(root, text="Encrypt", command=lambda: encrypt(beforeE.get()))
 sub.grid(row=3, column=0)
-dec = tk.Button(root, text="Decrypt", command=lambda: decrypt(beforeE.get(), afterE.get()))
+dec = tk.Button(root, text="Decrypt", command=lambda: decrypt(beforeE.get()))
 dec.grid(row=3, column=1)
 
 root.mainloop()
