@@ -1,3 +1,4 @@
+from tkinter.messagebox import showinfo
 import tkinter as tk
 import random
 
@@ -23,9 +24,27 @@ for key, val in codemap.items():
     inverted_codemap[val] = key
 
 def encrypt(before):
-    passw = ''
-    for i in before:
-        passw += codemap[i]
+    try:
+        passw = ''
+        for i in before:
+            if i not in codemap:
+                showinfo("Error", "Password must contain only letters, numbers, and special characters")
+                return
+            passw += codemap[i] #adding each digit to the password
+        if not 8 <= len(before) <= 20:
+            showinfo("Error", "Password must be between 8 and 20 characters long")
+            return
+        if not any(char.isupper() for char in before):
+            showinfo("Error", "Password must contain at least one uppercase letter")
+            return
+        if not any(char.isdigit() for char in before):
+            showinfo("Error", "Password must contain at least one number")
+            return
+        if not any(char in '!@#$%^&*(),.?":{}|<>' for char in before):
+            showinfo("Error", "Password must contain at least one special character")
+            return
+    except KeyError:
+        pass
     if len(before) < 20:
         while len(passw) < 40:
             passw += 'H'
