@@ -24,61 +24,8 @@ for key, val in codemap.items():
 
 def encrypt(before):
     passw = ''
-    for i in range(len(before)):
-        if before[i] == 'a':
-            passw += '21'
-        elif before[i] == 'b':
-            passw += '22'
-        elif before[i] == 'c':
-            passw += '23'
-        elif before[i] == 'd':
-            passw += '31'
-        elif before[i] == 'e':
-            passw += '32'
-        elif before[i] == 'f':
-            passw += '33'
-        elif before[i] == 'g':
-            passw += '41'
-        elif before[i] == 'h':
-            passw += '42'
-        elif before[i] == 'i':
-            passw += '43'
-        elif before[i] == 'j':
-            passw += '51'
-        elif before[i] == 'k':
-            passw += '52'
-        elif before[i] == 'l':
-            passw += '53'
-        elif before[i] == 'm':
-            passw += '61'
-        elif before[i] == 'n':
-            passw += '62'
-        elif before[i] == 'o':
-            passw += '63'
-        elif before[i] == 'p':
-            passw += '71'
-        elif before[i] == 'q':
-            passw += '72'
-        elif before[i] == 'r':
-            passw += '73'
-        elif before[i] == 's':
-            passw += '74'
-        elif before[i] == 't':
-            passw += '81'
-        elif before[i] == 'u':
-            passw += '82'
-        elif before[i] == 'v':
-            passw += '83'
-        elif before[i] == 'w':
-            passw += '91'
-        elif before[i] == 'x':
-            passw += '92'
-        elif before[i] == 'y':
-            passw += '93'
-        elif before[i] == 'z':
-            passw += '94'
-        elif before[i] == ' ':
-            passw += '95'
+    for i in before:
+        passw += codemap[i]
     if len(before) < 20:
         while len(passw) < 40:
             passw += 'H'
@@ -91,14 +38,13 @@ def decrypt(before):
     passw = ''
     i = 0
     while i < len(before):
-        if 'H' in before[i:i+2]:  # Stops processing at the 'H' character
+        if 'H' in before[i:i+2]:
             break
-        pair = before[i:i+2]  # Take two characters at a time
-        if pair in inverted_codemap:
-            passw += inverted_codemap[pair]  # Add the corresponding character
-        else:
-            passw += ''  # Handle cases where the pair is not found
+        pair = before[i:i+2]
+        passw += inverted_codemap[pair]
         i += 2
+    afterE.delete(0, tk.END)
+    afterE.insert(0, passw)
                
 root = tk.Tk()
 
