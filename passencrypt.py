@@ -19,21 +19,26 @@ codemap = {
     '`': '39', '~': '54', ' ': '51'
 }
 
+#reversing the keys and values in the codemap dictionary
 inverted_codemap = {}
 for key, val in codemap.items():
     inverted_codemap[val] = key
 
 def encrypt(before):
+    #adding exception handling
     try:
         passw = ''
+        #exception handling for invalid characters
         for i in before:
             if i not in codemap:
                 showinfo("Error", "Password must contain only letters, numbers, and special characters")
                 return
             passw += codemap[i] #adding each digit to the password
+        #exception handling for password length
         if not 8 <= len(before) <= 20:
             showinfo("Error", "Password must be between 8 and 20 characters long")
             return
+        #exception handling for password having an uppercase letter, number, and special character
         if not any(char.isupper() for char in before):
             showinfo("Error", "Password must contain at least one uppercase letter")
             return
@@ -45,10 +50,10 @@ def encrypt(before):
             return
     except KeyError:
         pass
-    if len(before) < 20:
+    if len(before) < 20: #if it is equal to 20, then the password is already 40 characters long
         while len(passw) < 40:
-            passw += 'H'
-            while len(passw) < 40:
+            passw += 'H' #adds H to the end of the password that's been altered
+            while len(passw) < 40: #adding random characters to the password
                 passw += random.choice(['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P', 'A', 'S', 'D', 'F', 'G', 'J', 'K', 'L', 'Z', 'X', 'C', 'V', 'B', 'N', 'M', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', '[', ']', ';', "'", ',', '.', '/', '!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '-', '_', '=', '+', '{', '}', '|', ':', '"', '<', '>', '?', '`', '~'])
     afterE.delete(0, tk.END)
     afterE.insert(0, passw)
@@ -57,9 +62,9 @@ def decrypt(before):
     passw = ''
     i = 0
     while i < len(before):
-        if 'H' in before[i:i+2]:
+        if 'H' in before[i:i+2]: #if H is in the password it means you have reached the end of the altered password and you can disregard the rest of the code
             break
-        pair = before[i:i+2]
+        pair = before[i:i+2] #each password character is a double digit number so need to check each pair
         passw += inverted_codemap[pair]
         i += 2
     afterE.delete(0, tk.END)
@@ -89,3 +94,4 @@ dec = tk.Button(root, text="Decrypt", command=lambda: decrypt(beforeE.get()))
 dec.grid(row=3, column=1)
 
 root.mainloop()
+#check on documentation
